@@ -191,9 +191,14 @@ public interface UserRepository extends CrudRepository<User, Long> {}
 
 [参考:accessing-data-jpa](http://spring.io/guides/gs/accessing-data-jpa/)
 
-**javabean**
+**三、请求解析**
+
+javabean
 
 ```java
+
+// javabean
+
 // @Entity注释指名这是一个实体Bean
 @Entity
 /**
@@ -239,5 +244,60 @@ public class User implements Serializable {
 
 }
 ```
+
+@ResponseBody
+```
+@ResponseBody是作用在方法上的，
+@ResponseBody 表示该方法的返回结果直接写入 HTTP response body 中，
+一般在异步获取数据时使用【也就是AJAX】，
+在使用 @RequestMapping后，返回值通常解析为跳转路径，
+但是加上 @ResponseBody 后返回结果不会被解析为跳转路径，
+而是直接写入 HTTP response body 中。 
+比如异步获取 json 数据，加上 @ResponseBody 后，会直接返回 json 数据。
+@RequestBody 将 HTTP 请求正文插入方法中，
+使用适合的 HttpMessageConverter 将请求体写入某个对象。
+```
+
+@RequestBody
+```
+@RequestBody是作用在形参列表上，
+用于将前台发送过来固定格式的数据【xml 格式或者 json等】封装为对应的 JavaBean 对象，
+封装时使用到的一个对象是系统默认配置的 HttpMessageConverter进行解析，
+然后封装到形参上。
+```
+
+```java
+<!-- 阿里的json工具包 -->
+<dependency>
+	<groupId>com.alibaba</groupId>
+	<artifactId>fastjson</artifactId>
+	<version>1.2.7</version>
+</dependency>
+```
+
+```java
+@Autowired
+private UserRepository userRepository;
+
+@RequestMapping("/login")
+@ResponseBody
+public JSONObject login(@RequestBody JSONObject jsonObject) {
+    System.out.println(jsonObject);
+
+    User user1 = new User();
+    user1.setId(1);
+    user1.setName("testtest");
+    userRepository.save(user1);
+
+    return jsonObject;
+}
+// post请求 将Content-Type转换成json 
+// contentType: "application/json; charset=utf-8"
+```
+
+
+
+
+
 
 
