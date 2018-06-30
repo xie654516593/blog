@@ -281,15 +281,12 @@ private UserRepository userRepository;
 
 @RequestMapping("/login")
 @ResponseBody
-public JSONObject login(@RequestBody JSONObject jsonObject) {
+public List<User> login(@RequestBody JSONObject jsonObject) {
     System.out.println(jsonObject);
 
-    User user1 = new User();
-    user1.setId(1);
-    user1.setName("testtest");
-    userRepository.save(user1);
+    List<User> user1= (List<User>) userRepository.findAll();
 
-    return jsonObject;
+    return user1;
 }
 // post请求 将Content-Type转换成json 
 // contentType: "application/json; charset=utf-8"
