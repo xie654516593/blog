@@ -281,10 +281,10 @@ private UserRepository userRepository;
 
 @RequestMapping("/login")
 @ResponseBody
-public List<User> login(@RequestBody JSONObject jsonObject) {
+public List<User> login(@RequestBody JSONObject object) {
     System.out.println(jsonObject);
 
-    List<User> user1= (List<User>) userRepository.findAll();
+    List<User> user1= (List<User>) userRepository.findById((Integer) object.get("id"));
 
     return user1;
 }
@@ -292,6 +292,11 @@ public List<User> login(@RequestBody JSONObject jsonObject) {
 // contentType: "application/json; charset=utf-8"
 ```
 
+```java
+public interface UserRepository extends CrudRepository<User, Integer> {
+    List<User> findById(Integer id);
+}
+```
 
 
 
