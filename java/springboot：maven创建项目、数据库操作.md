@@ -193,6 +193,42 @@ public interface UserRepository extends CrudRepository<User, Long> {}
 
 **三、请求解析**
 
+html 测试
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>index</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
+
+</head>
+<body>
+
+<script type="text/javascript">
+	$(function(){
+		$.ajax({
+			method: "GET",
+			url: "http://localhost:8080/login",
+			data: '{"name": "zhansan","age": "12"}',
+			contentType: "application/json",
+			dataType: "json",
+			success: function(res){
+				console.log(res);
+			},
+			error: function(error){
+				console.log(error);
+			}
+		})
+	});
+</script>
+
+</body>
+</html>
+```
+
 javabean
 
 ```java
@@ -298,7 +334,35 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 }
 ```
 
+**四、redis**
 
+[windows下安装redis](https://blog.csdn.net/jinwufeiyang/article/details/52156817/)
+
+```java
+// pom.xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
+
+// redis 配置 application.properties
+spring.redis.host=127.0.0.1
+# Redis服务器连接端口
+spring.redis.port=6379
+# Redis服务器连接密码（默认为空）
+spring.redis.password=
+# 连接池最大连接数（使用负值表示没有限制）
+spring.redis.pool.max-active=8
+# 连接池最大阻塞等待时间（使用负值表示没有限制）
+spring.redis.pool.max-wait=-1
+# 连接池中的最大空闲连接
+spring.redis.pool.max-idle=8
+# 连接池中的最小空闲连接
+spring.redis.pool.min-idle=0
+# 连接超时时间（毫秒）
+spring.redis.timeout=30000
+
+```
 
 
 
