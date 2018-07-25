@@ -334,7 +334,20 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 }
 ```
 
-**四、redis**
+**四、获取参数的几种常用注解**
+
+```
+@PathVariable : 用来获得请求url中的动态参数的 
+                如：@RequestMapping("/zyh/{type}") zyh(@PathVariable(value = "type") int type)
+
+@RequestParam : 该注解来获取多个参数,一般在PUT，POST中比较常用。
+                如：x(@RequestParam String signature, @RequestParam String timestamp)
+
+@RequestBody : 该注解和@RequestParam一样，也是目前我使用到最多的注解来获取参数
+                如：createUserByMap(@RequestBody Map<String,Object> reqMap)
+```
+
+**五、redis**
 
 [windows下安装redis](https://blog.csdn.net/jinwufeiyang/article/details/52156817/)
 
