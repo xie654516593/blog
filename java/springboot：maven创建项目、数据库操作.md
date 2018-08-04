@@ -331,6 +331,11 @@ public List<User> login(@RequestBody JSONObject object) {
 ```java
 public interface UserRepository extends CrudRepository<User, Integer> {
     List<User> findById(Integer id);
+
+   	// @Query(value = "select u.* from user u where u.id = ?1", nativeQuery = true)
+	// @Modifying
+	// List<User> findByUserId(Integer id);
+
 }
 ```
 
